@@ -1,0 +1,32 @@
+{
+  "name": "yourthemename",
+  "version": "1.0.0",
+  "description": "A Wordpress theme for whatever.",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dankaloczi/gulp4-dev/"
+  },
+  "author": "Daniel Kaloczi",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^9.4.10",
+    "browser-sync": "^2.26.3",
+    "gulp": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-image": "^4.4.1",
+    "gulp-jshint": "^2.1.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "jshint": "^2.10.1",
+    "node-sass": "^4.11.0"
+  },
+  "dependencies": {
+    "tunnel-agent": "^0.6.0"
+  }
+}
