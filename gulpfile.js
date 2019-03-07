@@ -1,6 +1,6 @@
 "use strict";
 
-var themename = 'your-theme-name';
+var themename = 'yourthemename';
 
 // Load plugins
 const { src, dest, watch, parallel, series } = require("gulp");
