@@ -3,28 +3,30 @@
 var themename = 'yourthemename';
 
 // Load plugins
-const { src, dest, watch, parallel, series } = require("gulp");
+var { src, dest, watch, parallel, series } = require("gulp");
 
-const autoprefixer = require("autoprefixer");
-const browsersync = require("browser-sync").create();
-const image = require("gulp-image");
-const jshint = require('gulp-jshint');
-const newer = require("gulp-newer");
-const postcss = require("gulp-postcss");
-const sass = require("gulp-sass");
-const sourcemaps = require('gulp-sourcemaps');
-const concat = require('gulp-concat');
+var autoprefixer = require("autoprefixer");
+var browsersync = require("browser-sync").create();
+//var image = require("gulp-image");
+//var jshint = require('gulp-jshint');
+//var newer = require("gulp-newer");
+var postcss = require("gulp-postcss");
+var sass = require("gulp-sass");
+var sourcemaps = require('gulp-sourcemaps');
+//var concat = require('gulp-concat');
 
 // Name of working theme folder
-global = '../' + themename + '/';
-var scss = global + 'sass/';
-//	js = global + 'assets/js/',
-//	img = global + 'assets/images/',
-//	languages = global + 'languages/';
+var rootDir = '../' + themename + '/';
+var paths = {
+		styles: {
+			src: 'sass/' + '{style.scss,rtl.scss}',
+			dest: 'assets/css/'
+		}
+};
 
 // CSS via Sass and Autoprefixer
 function css() {
-	return src(scss + '{style.scss,rtl.scss}')
+	return src(rootDir + paths.styles.src)
 	.pipe(sourcemaps.init())
 	.pipe(sass({
 		outputStyle: 'expanded',
@@ -34,13 +36,13 @@ function css() {
 	.pipe(postcss([
 		autoprefixer('last 2 versions', '> 1%')
 	]))
-	.pipe(sourcemaps.write(scss + 'maps'))
-	.pipe(dest(global + 'assets/css/'));
+	.pipe(sourcemaps.write(rootDir + 'sass/' + 'maps'))
+	.pipe(dest(rootDir + paths.styles.dest));
 }
 
 // Watch files and everything
 function watchFiles() {
- 	watch( global + '**/*.scss', css);
+ 	watch( rootDir + '**/*.scss', css);
 }
 
 // BrowserSync
@@ -52,15 +54,12 @@ function browserSync(done) {
 		port: 8080
 	});
 	done();
-	watch(global + '**/*').on('change', browsersync.reload);
+ 	watch(rootDir + '**/*').on('change', browsersync.reload);
 }
 
 // export tasks
-exports.browserSync = browserSync;
 exports.css = css;
+exports.browserSync = browserSync;
 exports.watchFiles = watchFiles;
 
 exports.default = series(css, parallel(watchFiles, browserSync));
-
-
-
